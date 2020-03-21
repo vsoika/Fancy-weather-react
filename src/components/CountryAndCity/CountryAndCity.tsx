@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import countryList from 'react-select-country-list';
 
-interface IWeatherTodayCountryState {
+interface ICountryAndCityState {
   city: String;
   country: String;
 }
 
-class WeatherTodayCountry extends Component<{}, IWeatherTodayCountryState> {
+class CountryAndCity extends Component<{}, ICountryAndCityState> {
   state = {
     city: '',
     country: '',
@@ -29,11 +29,10 @@ class WeatherTodayCountry extends Component<{}, IWeatherTodayCountryState> {
 
     return (
       <div>
-        {city},{countryFullName},
-		dghsdklfghsd;gh
+        {city},{countryFullName}
       </div>
     );
   }
 }
 
-export default WeatherTodayCountry;
+export default CountryAndCity;

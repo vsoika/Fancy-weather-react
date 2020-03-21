@@ -1,11 +1,11 @@
 import React from 'react';
 import './App.css';
-import WeatherTodayCountry from './components/weatherToday/weatherTodayCountry/weatherTodayCountry';
+import CountryAndCity from './components/CountryAndCity/CountryAndCity';
 
 const App: React.FC = () => {
   return (
     <>
-      <WeatherTodayCountry />
+      <CountryAndCity />
     </>
   );
 };
