@@ -3,7 +3,7 @@ import './App.css';
 import CountryAndCity from './components/CountryAndCity/CountryAndCity';
 import CurrentDate from './components/CurrentDate';
 import CoordinatesByCity from './components/CoordinatesByCity';
-import TodayWeather from './components/TodayWeather';
+import Weather from './components/Weather';
 import cityTimezones from 'city-timezones';
 
 class App extends Component {
@@ -43,7 +43,7 @@ class App extends Component {
             getCoordinates={this.getCoordinates}
           />
         ) : null}
-        {latitude ? <TodayWeather lat={latitude} long={longitude} /> : null}
+        {latitude ? <Weather lat={latitude} long={longitude} /> : null}
       </>
     );
   }
