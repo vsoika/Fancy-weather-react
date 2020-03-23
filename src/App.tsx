@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import './App.scss';
 import CountryAndCity from './components/CountryAndCity/CountryAndCity';
 import CurrentDate from './components/CurrentDate';
 import CoordinatesByCity from './components/CoordinatesByCity';
