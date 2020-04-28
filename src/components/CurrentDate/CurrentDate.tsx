@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import moment from 'moment';
 import { clearInterval, setInterval } from 'timers';
 
+import './CurrentDate.scss';
+
 interface ICurrentDateProps {
   timezone: string;
 }
@@ -37,12 +39,13 @@ class CurrentDate extends Component<ICurrentDateProps, ICurrentDateState> {
 
   render() {
     const { fullDate } = this.state;
-    const date = moment(fullDate[0], 'DD/MM/YYYY').format('ddd, D MMMM YYYY');
+    const date = moment(fullDate[0], 'DD/MM/YYYY').format('dddd, D MMMM');
     const time = fullDate[1];
 
     return (
-      <div>
-        {date}, {time}
+      <div className="date-container">
+        <span>{date}</span>
+        <span>{time}</span> 
       </div>
     );
   }

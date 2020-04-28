@@ -13,11 +13,8 @@
 	color: white;
 }
 
-@keyframes App-logo-spin {
-	from {
-		transform: rotate(0deg);
-	}
-	to {
-		transform: rotate(360deg);
-	}
+.city-container {
+	display: flex;
+	justify-content: space-between;
+	padding: 2rem;
 }

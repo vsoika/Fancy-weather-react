@@ -35,15 +35,18 @@ class App extends Component {
 
     return (
       <>
-        <CountryAndCity getCityName={this.getCityName} />
-        <CurrentDate timezone={timezone} />
+        <div className="city-container">
+          <CountryAndCity getCityName={this.getCityName} />
+          <CurrentDate timezone={timezone} />
+        </div>
+        {latitude ? <Weather lat={latitude} long={longitude} /> : null}
+
         {city ? (
           <CoordinatesByCity
             searchCity={city}
             getCoordinates={this.getCoordinates}
           />
         ) : null}
-        {latitude ? <Weather lat={latitude} long={longitude} /> : null}
       </>
     );
   }

@@ -24,7 +24,8 @@
     "react-select": "^3.0.8",
     "react-select-country-list": "^2.1.2",
     "react-skycons": "^0.7.0",
-    "typescript": "^3.8.3"
+    "typescript": "^3.8.3",
+    "weather-icons-react": "^1.2.0"
   },
   "scripts": {
     "start": "react-scripts start",

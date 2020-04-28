@@ -22,7 +22,7 @@ class CountryAndCity extends Component<ICountryAndCityProps, ICountryAndCityStat
     const json = await response.json();
 
     this.setState({
-      city: json.city,
+      city: json.region,
       country: json.country,
     });
 
@@ -33,10 +33,9 @@ class CountryAndCity extends Component<ICountryAndCityProps, ICountryAndCityStat
     const { city, country } = this.state;
     const countryFullName = countryList().getLabel(country);
 
-
     return (
       <div>
-        {city},{countryFullName}
+        {city}, {countryFullName}
       </div>
     );
   }

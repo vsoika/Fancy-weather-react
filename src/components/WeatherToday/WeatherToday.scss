@@ -1,8 +1,16 @@
 
 .row {
-    display: flex;
+    // display: flex;
 }
 
 .weather-today_temperature {
     font-size: 7rem;
+}
+
+.weather-today_icon {
+    display: flex;
+    flex-wrap: wrap;
+    width: 8rem;
+    align-items: center;
+    justify-content: center;
 }
