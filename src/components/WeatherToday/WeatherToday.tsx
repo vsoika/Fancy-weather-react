@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Skycons from 'react-skycons';
-import { Container, Row, ListGroup } from 'react-bootstrap';
+import { Container, ListGroup } from 'react-bootstrap';
 import CSS from 'csstype';
 import {
   WiHumidity,
@@ -43,34 +43,34 @@ class WeatherToday extends Component<IWeatherTodayProps> {
         <div className="weather-today_icon">
           {icon ? (
             <Skycons
-              color="green"
+              color="white"
               icon={this.getIcon(icon)}
               style={skyconsStyles}
             />
           ) : null}
           {summary ? <span>{summary.toUpperCase()}</span> : null}
+          {temperature ? (
+            <span className="weather-today_temperature">{`${Math.trunc(
+              temperature
+            )}°`}</span>
+          ) : null}
         </div>
-        {temperature ? (
-          <span className="weather-today_temperature">{`${Math.trunc(
-            temperature
-          )}°`}</span>
-        ) : null}
         <ListGroup variant="flush">
           <ListGroup.Item>
-            <WiThermometer size={24} color="#000" />
-            <span>FEELS LIKE: {`${Math.trunc(apparentTemperature)}°`}</span>
+            <WiThermometer size={24} color="#fff" />
+            <span>Feels like {`${Math.trunc(apparentTemperature)}°`}</span>
           </ListGroup.Item>
           <ListGroup.Item>
-            <WiStrongWind size={24} color="#000" />
-            <span>WIND: {`${Math.trunc(windSpeed)} m/s`}</span>
+            <WiStrongWind size={24} color="#fff" />
+            <span>Wind {`${Math.trunc(windSpeed)} m/s`}</span>
           </ListGroup.Item>
           <ListGroup.Item>
-            <WiHumidity size={24} color="#000" />
-            <span>HUMIDITY: {`${humidity * 100} %`}</span>
+            <WiHumidity size={24} color="#fff" />
+            <span>Humidity {`${humidity * 100} %`}</span>
           </ListGroup.Item>
           <ListGroup.Item>
-            <WiShowers size={24} color="#000" />
-            <span>CHANCE OF RAIN: {`${precipProbability * 100} %`}</span>
+            <WiShowers size={24} color="#fff" />
+            <span>Chance of rain {`${precipProbability * 100} %`}</span>
           </ListGroup.Item>
         </ListGroup>
       </Container>

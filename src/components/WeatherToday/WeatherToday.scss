@@ -14,3 +14,15 @@
     align-items: center;
     justify-content: center;
 }
+
+.container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.list-group-item {
+    display: flex;
+    align-items: center;
+    background-color: transparent !important;
+    border: none !important;
+}

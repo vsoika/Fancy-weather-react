@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Skycons from 'react-skycons';
 import WeatherToday from '../WeatherToday';
+import { DARKSKY_API_KEY } from '../../constants';
 
 interface IWeatherProps {
   lat: string;
@@ -21,7 +21,7 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
   async componentDidMount() {
     const { lat, long } = this.props;
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const targetUrl = `https://api.darksky.net/forecast/dc0da20d15b9b96d103277561e93e979/${lat},${long}?units=auto&exclude=hourly&lang=en`;
+    const targetUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${lat},${long}?units=auto&exclude=hourly&lang=en`;
 
     const res = await fetch(proxyUrl + targetUrl);
     const data = await res.json();

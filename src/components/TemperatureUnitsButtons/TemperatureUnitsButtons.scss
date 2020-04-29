@@ -1,0 +1,9 @@
+.celsius-button::after {
+    content: '\2103';
+    font-size: 20px;
+}
+
+.fahrenheit-button::after {
+    content: '\2109';
+    font-size: 20px;
+}

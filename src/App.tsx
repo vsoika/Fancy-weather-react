@@ -5,6 +5,7 @@ import CurrentDate from './components/CurrentDate';
 import CoordinatesByCity from './components/CoordinatesByCity';
 import Weather from './components/Weather';
 import cityTimezones from 'city-timezones';
+import Header from './components/Header';
 
 class App extends Component {
   state = {
@@ -35,18 +36,22 @@ class App extends Component {
 
     return (
       <>
-        <div className="city-container">
-          <CountryAndCity getCityName={this.getCityName} />
-          <CurrentDate timezone={timezone} />
-        </div>
-        {latitude ? <Weather lat={latitude} long={longitude} /> : null}
+        <Header />
 
-        {city ? (
-          <CoordinatesByCity
-            searchCity={city}
-            getCoordinates={this.getCoordinates}
-          />
-        ) : null}
+        <main>
+          <div className="city-container">
+            <CountryAndCity getCityName={this.getCityName} />
+            <CurrentDate timezone={timezone} />
+          </div>
+          {latitude ? <Weather lat={latitude} long={longitude} /> : null}
+
+          {city ? (
+            <CoordinatesByCity
+              searchCity={city}
+              getCoordinates={this.getCoordinates}
+            />
+          ) : null}
+        </main>
       </>
     );
   }

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { OPENCAGEDATA_API_KEY } from '../../constants';
 
 interface ICoordinatesByCityProps {
   searchCity: string;
@@ -21,7 +22,7 @@ class CoordinatesByCity extends Component<
 
   async componentDidMount() {
     const { searchCity, getCoordinates } = this.props;
-    const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchCity}&key=f80e6bea64794513a95d34c021658fb8&pretty=1&language=en`;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchCity}&key=${OPENCAGEDATA_API_KEY}=1&language=en`;
     const response = await fetch(url);
     const data = await response.json();
 

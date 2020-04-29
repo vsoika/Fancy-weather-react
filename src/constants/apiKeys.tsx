@@ -1,0 +1,3 @@
+export const DARKSKY_API_KEY = 'dc0da20d15b9b96d103277561e93e979';
+export const OPENCAGEDATA_API_KEY = 'f80e6bea64794513a95d34c021658fb8&pretty';
+export const UNSPLASH_API_KEY = '7a2fd3e0ee7a933082f73f329c5fe1f1ea7304ce1bcd5b8fe86daded154ee416';
