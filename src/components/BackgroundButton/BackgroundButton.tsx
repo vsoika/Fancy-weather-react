@@ -12,9 +12,9 @@ class BackgroundButton extends Component<{}, IBackgroundButtonState> {
     isError: false,
   };
 
-  async componentDidMount() {
-    await this.searchPhoto();
-  }
+  // async componentDidMount() {
+  //   await this.searchPhoto();
+  // }
 
   searchPhoto = async () => {
     try {
@@ -30,10 +30,12 @@ class BackgroundButton extends Component<{}, IBackgroundButtonState> {
           isError: false,
         });
       }
-    } catch {
+    } catch(err) {
       this.setState({
         isError: true,
       });
+
+      console.warn(err);
     }
   };
 

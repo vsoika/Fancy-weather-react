@@ -16,6 +16,7 @@ class App extends Component {
   };
 
   getCityName = (cityName: string) => {
+    console.log(cityName, cityTimezones.lookupViaCity(cityName)[0].timezone);
     this.setState({
       city: cityName,
       timezone: cityTimezones.lookupViaCity(cityName)[0].timezone,
@@ -32,8 +33,6 @@ class App extends Component {
   render() {
     const { city, timezone, latitude, longitude } = this.state;
 
-    console.log(this.state.city);
-
     return (
       <>
         <Header />
@@ -41,7 +40,7 @@ class App extends Component {
         <main>
           <div className="city-container">
             <CountryAndCity getCityName={this.getCityName} />
-            <CurrentDate timezone={timezone} />
+            {timezone ? <CurrentDate timezone={timezone} /> : null}
           </div>
           {latitude ? <Weather lat={latitude} long={longitude} /> : null}
 

@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { OPENCAGEDATA_API_KEY } from '../../constants';
+import MapComponent from '../MapComponent';
+import MapModal from '../MapModal';
+import { Button } from 'react-bootstrap';
+import { GeoAlt } from 'react-bootstrap-icons';
 
 interface ICoordinatesByCityProps {
   searchCity: string;
@@ -9,6 +13,7 @@ interface ICoordinatesByCityProps {
 interface ICoordinatesByCityState {
   latitude: string;
   longitude: string;
+  modalShow: boolean;
 }
 
 class CoordinatesByCity extends Component<
@@ -18,6 +23,7 @@ class CoordinatesByCity extends Component<
   state = {
     latitude: '',
     longitude: '',
+    modalShow: false,
   };
 
   async componentDidMount() {
@@ -31,16 +37,35 @@ class CoordinatesByCity extends Component<
       longitude: data.results[0].geometry.lng,
     });
 
-const { latitude, longitude } = this.state; 
+    const { latitude, longitude } = this.state;
     getCoordinates(latitude, longitude);
   }
 
   render() {
-    const { latitude, longitude } = this.state;
+    const { latitude, longitude, modalShow } = this.state;
 
     return (
       <div>
-        {latitude}, {longitude}
+        {latitude && longitude ? (
+          <>
+            <Button
+              variant="primary"
+              onClick={() => this.setState({ modalShow: true })}
+            >
+              <GeoAlt size={25} />
+            </Button>
+
+            <MapModal
+              latitude={+latitude}
+              longitude={+longitude}
+              show={modalShow}
+              onHide={() => this.setState({ modalShow: false })}
+            />
+          </>
+        ) : null}
+        <span>
+          {latitude}, {longitude}
+        </span>
       </div>
     );
   }

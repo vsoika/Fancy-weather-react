@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import countryList from 'react-select-country-list';
 
 interface ICountryAndCityState {
   city: String;
@@ -17,13 +16,15 @@ class CountryAndCity extends Component<ICountryAndCityProps, ICountryAndCityStat
   };
 
   async componentDidMount() {
-    const url = 'https://ipinfo.io/json?token=23a12f21699c5a';
+    const url = 'https://api.ipdata.co/?api-key=28e4801f6049a2aa46524ac7944805e6c872286cbeb41bb6b5293038';
     const response = await fetch(url);
     const json = await response.json();
 
+    console.log(json)
+
     this.setState({
-      city: json.region,
-      country: json.country,
+      city: json.city,
+      country: json.country_name,
     });
 
     this.props.getCityName(this.state.city);
@@ -31,11 +32,10 @@ class CountryAndCity extends Component<ICountryAndCityProps, ICountryAndCityStat
 
   render() {
     const { city, country } = this.state;
-    const countryFullName = countryList().getLabel(country);
 
     return (
       <div>
-        {city}, {countryFullName}
+        {city}, {country}
       </div>
     );
   }
