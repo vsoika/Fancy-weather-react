@@ -1,10 +1,13 @@
 import React, { Component } from 'react';
 import WeatherToday from '../WeatherToday';
 import { DARKSKY_API_KEY } from '../../constants';
+import WeatherNextDays from '../WeatherNextDays';
+import CoordinatesByCity from '../CoordinatesByCity';
 
 interface IWeatherProps {
   lat: string;
   long: string;
+  isCelsius: boolean;
 }
 
 interface IWeatherStates {
@@ -33,11 +36,39 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
     });
   }
 
+  getIcon = (iconName: string) => {
+    const convertIconName = iconName.toUpperCase().replace(/-/g, '_');
+
+    return convertIconName;
+  };
+
+  convertToFahrenheit(convertValue: number) {
+    const temperature = `${Math.round(convertValue * 1.8 + 32)}°`;
+    return temperature;
+  }
+
   render() {
     const { currentWeatherData, nextDaysWeatherData } = this.state;
+    const { isCelsius } = this.props;
+
     return (
       <>
-        {currentWeatherData ? <WeatherToday data={currentWeatherData} /> : null}
+        {currentWeatherData ? (
+          <WeatherToday
+            data={currentWeatherData}
+            getIcon={this.getIcon}
+            convertToFahrenheit={this.convertToFahrenheit}
+            isCelsius={isCelsius}
+          />
+        ) : null}
+        {nextDaysWeatherData ? (
+          <WeatherNextDays
+            data={nextDaysWeatherData}
+            getIcon={this.getIcon}
+            convertToFahrenheit={this.convertToFahrenheit}
+            isCelsius={isCelsius}
+          />
+        ) : null}
       </>
     );
   }

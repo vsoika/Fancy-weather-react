@@ -5,6 +5,8 @@ import MapModal from '../MapModal';
 import { Button } from 'react-bootstrap';
 import { GeoAlt } from 'react-bootstrap-icons';
 
+import './CoordinatesByCity.scss';
+
 interface ICoordinatesByCityProps {
   searchCity: string;
   getCoordinates: (lat: string, long: string) => void;
@@ -48,12 +50,12 @@ class CoordinatesByCity extends Component<
       <div>
         {latitude && longitude ? (
           <>
-            <Button
-              variant="primary"
+            <button
+              className="btn btn-modal"
               onClick={() => this.setState({ modalShow: true })}
             >
-              <GeoAlt size={25} />
-            </Button>
+              <GeoAlt className="btn-modal__icon" size={25} />
+            </button>
 
             <MapModal
               latitude={+latitude}

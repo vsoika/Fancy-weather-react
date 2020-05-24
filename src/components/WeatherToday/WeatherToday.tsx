@@ -13,6 +13,9 @@ import './WeatherToday.scss';
 
 interface IWeatherTodayProps {
   data: any;
+  getIcon: (iconName: string) => void;
+  convertToFahrenheit: (convertValue: number) => string;
+  isCelsius: boolean;
 }
 
 const skyconsStyles: CSS.Properties = {
@@ -21,12 +24,6 @@ const skyconsStyles: CSS.Properties = {
 };
 
 class WeatherToday extends Component<IWeatherTodayProps> {
-  getIcon = (iconName: string) => {
-    const convertIconName = iconName.toUpperCase().replace('-', '_');
-
-    return convertIconName;
-  };
-
   render() {
     const {
       summary,
@@ -38,21 +35,21 @@ class WeatherToday extends Component<IWeatherTodayProps> {
       precipProbability,
     } = this.props.data;
 
+    const { isCelsius, convertToFahrenheit, getIcon } = this.props;
+
     return (
       <Container>
         <div className="weather-today_icon">
           {icon ? (
-            <Skycons
-              color="white"
-              icon={this.getIcon(icon)}
-              style={skyconsStyles}
-            />
+            <Skycons color="white" icon={getIcon(icon)} style={skyconsStyles} />
           ) : null}
           {summary ? <span>{summary.toUpperCase()}</span> : null}
           {temperature ? (
-            <span className="weather-today_temperature">{`${Math.trunc(
-              temperature
-            )}°`}</span>
+            <span className="weather-today_temperature">
+              {isCelsius
+                ? `${Math.trunc(temperature)}°`
+                : convertToFahrenheit(temperature)}
+            </span>
           ) : null}
         </div>
         <ListGroup variant="flush">
@@ -66,7 +63,7 @@ class WeatherToday extends Component<IWeatherTodayProps> {
           </ListGroup.Item>
           <ListGroup.Item>
             <WiHumidity size={24} color="#fff" />
-            <span>Humidity {`${humidity * 100} %`}</span>
+            <span>Humidity {`${Math.trunc(humidity * 100)} %`}</span>
           </ListGroup.Item>
           <ListGroup.Item>
             <WiShowers size={24} color="#fff" />

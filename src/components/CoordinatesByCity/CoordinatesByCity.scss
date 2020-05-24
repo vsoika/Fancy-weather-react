@@ -1,0 +1,8 @@
+.btn-modal:focus {
+    box-shadow: none !important;
+}
+
+.btn-modal__icon:hover {
+    transform: perspective(1px) scale(1.05);
+    transition: all .4s; 
+}
