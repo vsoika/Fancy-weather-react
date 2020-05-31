@@ -17,11 +17,12 @@ class App extends Component {
     isCelsius: true,
   };
 
-  getCityName = (cityName: string) => {
-    console.log(cityName, cityTimezones.lookupViaCity(cityName)[0].timezone);
+  getCityName = (currentCity: string, inputCity: string) => {
+    // console.log(currentCity, inputCity, cityTimezones.lookupViaCity(inputCity)[0].country);
+    
     this.setState({
-      city: cityName,
-      timezone: cityTimezones.lookupViaCity(cityName)[0].timezone,
+      city: inputCity ? inputCity : currentCity,
+      timezone: cityTimezones.lookupViaCity(inputCity ? inputCity : currentCity)[0].timezone,
     });
   };
 
@@ -46,30 +47,54 @@ class App extends Component {
 
   render() {
     const { city, timezone, latitude, longitude, isCelsius } = this.state;
+    let inputCountry = '';
 
+    if(city) {
+       inputCountry = cityTimezones.lookupViaCity(city)[0].country;
+    }
+    
     return (
       <>
         <Header
           activateCelsius={this.activateCelsius}
           activateFahrenheit={this.activateFahrenheit}
+          getCityName={this.getCityName}
         />
 
         <main>
           <div className="city-container">
-            <CountryAndCity getCityName={this.getCityName} />
+            <div className="city-container_wrapper">
+              <CountryAndCity getCityName={this.getCityName}/>
+              {city ? (
+                <CoordinatesByCity
+                  searchCity={city}
+                  getCoordinates={this.getCoordinates}
+                />
+              ) : null}
+            </div>
+
             {timezone ? <CurrentDate timezone={timezone} /> : null}
           </div>
           {latitude ? (
             <Weather lat={latitude} long={longitude} isCelsius={isCelsius} />
           ) : null}
-
-          {city ? (
-            <CoordinatesByCity
-              searchCity={city}
-              getCoordinates={this.getCoordinates}
-            />
-          ) : null}
         </main>
+
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
+        <div className="firefly"></div>
       </>
     );
   }

@@ -36,6 +36,23 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
     });
   }
 
+  async componentDidUpdate(prevProps: any) {
+    const { lat, long } = this.props;
+    if (lat !== prevProps.lat) {
+      const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+      const targetUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${lat},${long}?units=auto&exclude=hourly&lang=en`;
+
+      const res = await fetch(proxyUrl + targetUrl);
+      const data = await res.json();
+      console.log(data);
+
+      this.setState({
+        currentWeatherData: data.currently,
+        nextDaysWeatherData: data.daily.data,
+      });
+    }
+  }
+
   getIcon = (iconName: string) => {
     const convertIconName = iconName.toUpperCase().replace(/-/g, '_');
 

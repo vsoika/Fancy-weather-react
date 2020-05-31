@@ -6,7 +6,7 @@ interface ICountryAndCityState {
 }
 
 interface ICountryAndCityProps {
-  getCityName: (cityName: string) => void;
+  getCityName: (currentCity: string, inputCity: string) => void;
 }
 
 class CountryAndCity extends Component<ICountryAndCityProps, ICountryAndCityState> {
@@ -27,7 +27,7 @@ class CountryAndCity extends Component<ICountryAndCityProps, ICountryAndCityStat
       country: json.country_name,
     });
 
-    this.props.getCityName(this.state.city);
+    this.props.getCityName(this.state.city, '');
   }
 
   render() {

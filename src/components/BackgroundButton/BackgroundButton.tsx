@@ -3,6 +3,8 @@ import { Button, Alert } from 'react-bootstrap';
 import { ArrowCounterclockwise } from 'react-bootstrap-icons';
 import { UNSPLASH_API_KEY } from '../../constants';
 
+import './BackgroundButton.scss';
+
 interface IBackgroundButtonState {
   isError: boolean;
 }
@@ -22,8 +24,8 @@ class BackgroundButton extends Component<{}, IBackgroundButtonState> {
       const response = await fetch(url);
       const data = await response.json();
       const urlImage = data.urls.regular;
-      document.body.style.background = `url(${urlImage}) center no-repeat fixed`;
-      document.body.style.backgroundSize = 'cover';
+      // document.body.style.background = `url(${urlImage}) center no-repeat fixed`;
+      // document.body.style.backgroundSize = 'cover';
 
       if (this.state.isError) {
         this.setState({
@@ -43,7 +45,7 @@ class BackgroundButton extends Component<{}, IBackgroundButtonState> {
     const { isError } = this.state;
 
     return (
-      <>
+      <div className="bg-btn-container">
         {isError ? (
           <Alert variant="warning">
             Image upload limit has been reached. Please, wait some time.
@@ -53,7 +55,7 @@ class BackgroundButton extends Component<{}, IBackgroundButtonState> {
             <ArrowCounterclockwise size={25} />
           </Button>
         )}
-      </>
+      </div>
     );
   }
 }

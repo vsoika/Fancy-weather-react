@@ -55,7 +55,12 @@ class WeatherToday extends Component<IWeatherTodayProps> {
         <ListGroup variant="flush">
           <ListGroup.Item>
             <WiThermometer size={24} color="#fff" />
-            <span>Feels like {`${Math.trunc(apparentTemperature)}°`}</span>
+            <span>
+              Feels like{' '}
+              {isCelsius
+                ? `${Math.trunc(apparentTemperature)}°`
+                : convertToFahrenheit(apparentTemperature)}
+            </span>
           </ListGroup.Item>
           <ListGroup.Item>
             <WiStrongWind size={24} color="#fff" />
@@ -67,7 +72,7 @@ class WeatherToday extends Component<IWeatherTodayProps> {
           </ListGroup.Item>
           <ListGroup.Item>
             <WiShowers size={24} color="#fff" />
-            <span>Chance of rain {`${precipProbability * 100} %`}</span>
+            <span>Chance of rain {`${Math.trunc(precipProbability * 100)} %`}</span>
           </ListGroup.Item>
         </ListGroup>
       </Container>

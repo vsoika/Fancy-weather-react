@@ -30,6 +30,7 @@ class CoordinatesByCity extends Component<
 
   async componentDidMount() {
     const { searchCity, getCoordinates } = this.props;
+    console.log(searchCity);
     const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchCity}&key=${OPENCAGEDATA_API_KEY}=1&language=en`;
     const response = await fetch(url);
     const data = await response.json();
@@ -43,11 +44,33 @@ class CoordinatesByCity extends Component<
     getCoordinates(latitude, longitude);
   }
 
+  async componentDidUpdate(prevProps: any) {
+    const { searchCity, getCoordinates } = this.props;
+
+    console.log(this.props.searchCity, prevProps.searchCity)
+
+    if (this.props.searchCity !== prevProps.searchCity) {
+      const url = `https://api.opencagedata.com/geocode/v1/json?q=${searchCity}&key=${OPENCAGEDATA_API_KEY}=1&language=en`;
+      const response = await fetch(url);
+      const data = await response.json();
+
+      console.log(data)
+
+      this.setState({
+        latitude: data.results[0].geometry.lat,
+        longitude: data.results[0].geometry.lng,
+      });
+
+      const { latitude, longitude } = this.state;
+      getCoordinates(latitude, longitude);
+    }
+  }
+
   render() {
     const { latitude, longitude, modalShow } = this.state;
 
     return (
-      <div>
+      <div className="coordinates-container">
         {latitude && longitude ? (
           <>
             <button
