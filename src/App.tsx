@@ -15,21 +15,22 @@ class App extends Component {
     latitude: '',
     longitude: '',
     isCelsius: true,
+    inputCity: '',
+    language: 'en',
   };
 
   getCityName = (currentCity: string, inputCity: string) => {
-    // console.log(currentCity, inputCity, cityTimezones.lookupViaCity(inputCity)[0].country);
-    
     this.setState({
       city: inputCity ? inputCity : currentCity,
-      timezone: cityTimezones.lookupViaCity(inputCity ? inputCity : currentCity)[0].timezone,
+      inputCity: inputCity,
     });
   };
 
-  getCoordinates = (lat: string, long: string) => {
+  getCoordinates = (lat: string, long: string, timezone: string) => {
     this.setState({
       latitude: lat,
       longitude: long,
+      timezone: timezone,
     });
   };
 
@@ -45,30 +46,46 @@ class App extends Component {
     });
   };
 
-  render() {
-    const { city, timezone, latitude, longitude, isCelsius } = this.state;
-    let inputCountry = '';
+  setLanguage = (lang: string) => {
+    this.setState({
+      language: lang,
+    });
+  };
 
-    if(city) {
-       inputCountry = cityTimezones.lookupViaCity(city)[0].country;
-    }
-    
+  render() {
+    const {
+      city,
+      timezone,
+      latitude,
+      longitude,
+      isCelsius,
+      inputCity,
+      language,
+    } = this.state;
+    console.log('App lang: ', language);
+
     return (
       <>
         <Header
           activateCelsius={this.activateCelsius}
           activateFahrenheit={this.activateFahrenheit}
           getCityName={this.getCityName}
+          setLanguage={this.setLanguage}
         />
 
         <main>
           <div className="city-container">
             <div className="city-container_wrapper">
-              <CountryAndCity getCityName={this.getCityName}/>
+              <CountryAndCity
+                getCityName={this.getCityName}
+                inputCity={inputCity}
+                language={language}
+              />
               {city ? (
                 <CoordinatesByCity
                   searchCity={city}
                   getCoordinates={this.getCoordinates}
+                  language={language}
                 />
               ) : null}
             </div>
@@ -76,7 +93,12 @@ class App extends Component {
             {timezone ? <CurrentDate timezone={timezone} /> : null}
           </div>
           {latitude ? (
-            <Weather lat={latitude} long={longitude} isCelsius={isCelsius} />
+            <Weather
+              lat={latitude}
+              long={longitude}
+              isCelsius={isCelsius}
+              language={language}
+            />
           ) : null}
         </main>
 

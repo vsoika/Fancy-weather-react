@@ -45,7 +45,7 @@ class CurrentDate extends Component<ICurrentDateProps, ICurrentDateState> {
     return (
       <div className="date-container">
         <span>{date}</span>
-        <span>{time}</span> 
+        <span>{time}</span>
       </div>
     );
   }

@@ -8,6 +8,7 @@ interface IWeatherProps {
   lat: string;
   long: string;
   isCelsius: boolean;
+  language: string;
 }
 
 interface IWeatherStates {
@@ -22,9 +23,9 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
   };
 
   async componentDidMount() {
-    const { lat, long } = this.props;
+    const { lat, long, language } = this.props;
     const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-    const targetUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${lat},${long}?units=auto&exclude=hourly&lang=en`;
+    const targetUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${lat},${long}?units=auto&exclude=hourly&lang=${language}`;
 
     const res = await fetch(proxyUrl + targetUrl);
     const data = await res.json();
@@ -37,10 +38,11 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
   }
 
   async componentDidUpdate(prevProps: any) {
-    const { lat, long } = this.props;
-    if (lat !== prevProps.lat) {
+    const { lat, long, language } = this.props;
+
+    if (lat !== prevProps.lat || language !== prevProps.language) {
       const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
-      const targetUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${lat},${long}?units=auto&exclude=hourly&lang=en`;
+      const targetUrl = `https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${lat},${long}?units=auto&exclude=hourly&lang=${language}`;
 
       const res = await fetch(proxyUrl + targetUrl);
       const data = await res.json();
@@ -66,7 +68,9 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
 
   render() {
     const { currentWeatherData, nextDaysWeatherData } = this.state;
-    const { isCelsius } = this.props;
+    const { isCelsius, language } = this.props;
+
+    console.log(currentWeatherData);
 
     return (
       <>
@@ -84,6 +88,7 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
             getIcon={this.getIcon}
             convertToFahrenheit={this.convertToFahrenheit}
             isCelsius={isCelsius}
+            language={language}
           />
         ) : null}
       </>

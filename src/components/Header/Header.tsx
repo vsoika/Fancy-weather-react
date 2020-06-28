@@ -10,21 +10,30 @@ interface IHeaderProps {
   activateFahrenheit: () => void;
   activateCelsius: () => void;
   getCityName: (currentCity: string, inputCity: string) => void;
+  setLanguage: (lang: string) => void;
 }
 
 class Header extends Component<IHeaderProps> {
+  getInputCity = () => {
+    const inputValue = document.getElementById('inputCity') as HTMLInputElement;
+    const inputCity = inputValue.value.trim();
+    if (inputCity.length > 2) {
+      this.props.getCityName('', inputCity);
+    }
+  };
+
   render() {
-    const { activateCelsius, activateFahrenheit, getCityName } = this.props;
+    const { activateCelsius, activateFahrenheit, setLanguage } = this.props;
 
     return (
       <header>
         <BackgroundButton />
-        <LanguageSelect />
+        <LanguageSelect setLanguage={setLanguage} />
         <TemperatureUnitsButtons
           activateCelsius={activateCelsius}
           activateFahrenheit={activateFahrenheit}
         />
-        <SearchInput getCityName={getCityName}/>
+        <SearchInput getInputCity={this.getInputCity} />
       </header>
     );
   }

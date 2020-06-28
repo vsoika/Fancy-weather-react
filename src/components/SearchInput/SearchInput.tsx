@@ -1,34 +1,34 @@
 import React, { Component } from 'react';
 import { Button, InputGroup, FormControl } from 'react-bootstrap';
+import { useTranslation } from 'react-i18next';
 
 import './SearchInput.scss';
 
 interface ISearchInputProps {
-  getCityName: (currentCity: string, inputCity: string) => void;
+  getInputCity: () => void;
 }
 
-export default class SearchInput extends Component<ISearchInputProps> {
-  getInputCity = () => {
-    const inputCity = document.getElementById('inputCity') as HTMLInputElement;
-    if(inputCity.value.length > 2) {
-        this.props.getCityName('', inputCity.value);
-    }
-  };
+const SearchInput: React.FC<ISearchInputProps> = ({ getInputCity }) => {
+  const { t } = useTranslation();
 
-  render() {
-    return (
-      <InputGroup className="mb-3">
-        <FormControl
-          id="inputCity"
-          placeholder="Write a city"
-          aria-label="Search city"
-        />
-        <InputGroup.Append>
-          <Button variant="outline-secondary" className="search-btn" onClick={this.getInputCity}>
-            Search
-          </Button>
-        </InputGroup.Append>
-      </InputGroup>
-    );
-  }
-}
+  return (
+    <InputGroup className="mb-3">
+      <FormControl
+        id="inputCity"
+        placeholder={t('writeAcity')}
+        aria-label="Search city"
+      />
+      <InputGroup.Append>
+        <Button
+          variant="outline-secondary"
+          className="search-btn"
+          onClick={getInputCity}
+        >
+          {t('search')}
+        </Button>
+      </InputGroup.Append>
+    </InputGroup>
+  );
+};
+
+export default SearchInput;

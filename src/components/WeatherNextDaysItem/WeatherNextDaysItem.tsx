@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import Skycons from 'react-skycons';
 import moment from 'moment';
+import 'moment/locale/ru';
+import 'moment/locale/be';
 import CSS from 'csstype';
 
 import './WeatherNextDaysItem.scss';
@@ -15,12 +17,14 @@ interface IWeatherNextDaysItemProps {
   getIcon: (iconName: string) => void;
   convertToFahrenheit: (convertValue: number) => string;
   isCelsius: boolean;
+  language: string;
 }
 
 class WeatherNextDaysItem extends Component<IWeatherNextDaysItemProps> {
   getWeekDay = (timestamp: number) => {
-    const date = new Date(timestamp * 1000).toLocaleString().split(',');
-    const day = moment(date[0], 'DD/MM/YYYY').format('ddd, D MMMM');
+    const day = moment(timestamp * 1000).format('ddd, D MMMM');
+    moment.locale(this.props.language);
+    console.log(moment.locale());
     return day;
   };
 
