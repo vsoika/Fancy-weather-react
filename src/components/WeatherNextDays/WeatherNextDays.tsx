@@ -13,20 +13,28 @@ interface IWeatherNextDaysProps {
 
 class WeatherNextDays extends Component<IWeatherNextDaysProps> {
   render() {
-    const { data, getIcon, isCelsius, convertToFahrenheit, language } = this.props;
+    const {
+      data,
+      getIcon,
+      isCelsius,
+      convertToFahrenheit,
+      language,
+    } = this.props;
 
     return data.length ? (
       <div className="weather-next-days__wrapper">
-        {data.map((day: {}, i) => (
-          <WeatherNextDaysItem
-            key={i}
-            dayData={day}
-            getIcon={getIcon}
-            isCelsius={isCelsius}
-            convertToFahrenheit={convertToFahrenheit}
-            language={language}
-          />
-        ))}
+        {data.map((day: {}, i) => {
+          return i !== 0 ? (
+            <WeatherNextDaysItem
+              key={i}
+              dayData={day}
+              getIcon={getIcon}
+              isCelsius={isCelsius}
+              convertToFahrenheit={convertToFahrenheit}
+              language={language}
+            />
+          ) : null;
+        })}
       </div>
     ) : null;
   }

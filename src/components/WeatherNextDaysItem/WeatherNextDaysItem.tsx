@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import Skycons from 'react-skycons';
 import moment from 'moment';
-import 'moment/locale/ru';
-import 'moment/locale/be';
+import 'moment/min/locales.min';
 import CSS from 'csstype';
 
 import './WeatherNextDaysItem.scss';
@@ -24,7 +23,7 @@ class WeatherNextDaysItem extends Component<IWeatherNextDaysItemProps> {
   getWeekDay = (timestamp: number) => {
     const day = moment(timestamp * 1000).format('ddd, D MMMM');
     moment.locale(this.props.language);
-    console.log(moment.locale());
+    console.log(moment.locale(), day);
     return day;
   };
 
