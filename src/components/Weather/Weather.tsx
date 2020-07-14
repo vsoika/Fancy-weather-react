@@ -4,6 +4,8 @@ import { DARKSKY_API_KEY } from '../../constants';
 import WeatherNextDays from '../WeatherNextDays';
 import CoordinatesByCity from '../CoordinatesByCity';
 
+const US_COUNTRY_UNITS = 'us';
+
 interface IWeatherProps {
   lat: string;
   long: string;
@@ -14,12 +16,14 @@ interface IWeatherProps {
 interface IWeatherStates {
   currentWeatherData: {};
   nextDaysWeatherData: object[];
+  isUsCountryUnits: boolean;
 }
 
 class Weather extends Component<IWeatherProps, IWeatherStates> {
   state = {
     currentWeatherData: {},
     nextDaysWeatherData: [],
+    isUsCountryUnits: false,
   };
 
   async componentDidMount() {
@@ -29,6 +33,12 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
 
     const res = await fetch(proxyUrl + targetUrl);
     const data = await res.json();
+    const isUsCountryUnits = data.flags.units;
+
+    isUsCountryUnits === US_COUNTRY_UNITS
+      ? this.setState({ isUsCountryUnits: true })
+      : this.setState({ isUsCountryUnits: false });
+
     console.log(data);
 
     this.setState({
@@ -46,7 +56,13 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
 
       const res = await fetch(proxyUrl + targetUrl);
       const data = await res.json();
-      console.log(data);
+      const isUsCountryUnits = data.flags.units;
+
+      isUsCountryUnits === US_COUNTRY_UNITS
+        ? this.setState({ isUsCountryUnits: true })
+        : this.setState({ isUsCountryUnits: false });
+
+      console.log(data, isUsCountryUnits);
 
       this.setState({
         currentWeatherData: data.currently,
@@ -66,8 +82,17 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
     return temperature;
   }
 
+  convertToCelsius(convertValue: number) {
+    const temperature = `${Math.round((convertValue - 32) / 1.8)}°`;
+    return temperature;
+  }
+
   render() {
-    const { currentWeatherData, nextDaysWeatherData } = this.state;
+    const {
+      currentWeatherData,
+      nextDaysWeatherData,
+      isUsCountryUnits,
+    } = this.state;
     const { isCelsius, language } = this.props;
 
     console.log(currentWeatherData);
@@ -79,7 +104,9 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
             data={currentWeatherData}
             getIcon={this.getIcon}
             convertToFahrenheit={this.convertToFahrenheit}
+            convertToCelsius={this.convertToCelsius}
             isCelsius={isCelsius}
+            isUsCountryUnits={isUsCountryUnits}
           />
         ) : null}
         {nextDaysWeatherData ? (
@@ -87,8 +114,10 @@ class Weather extends Component<IWeatherProps, IWeatherStates> {
             data={nextDaysWeatherData}
             getIcon={this.getIcon}
             convertToFahrenheit={this.convertToFahrenheit}
+            convertToCelsius={this.convertToCelsius}
             isCelsius={isCelsius}
             language={language}
+            isUsCountryUnits={isUsCountryUnits}
           />
         ) : null}
       </>

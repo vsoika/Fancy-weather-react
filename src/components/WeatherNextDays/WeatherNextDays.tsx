@@ -7,8 +7,10 @@ interface IWeatherNextDaysProps {
   data: object[];
   getIcon: (iconName: string) => void;
   convertToFahrenheit: (convertValue: number) => string;
+  convertToCelsius: (convertValue: number) => string;
   isCelsius: boolean;
   language: string;
+  isUsCountryUnits: boolean;
 }
 
 class WeatherNextDays extends Component<IWeatherNextDaysProps> {
@@ -18,7 +20,9 @@ class WeatherNextDays extends Component<IWeatherNextDaysProps> {
       getIcon,
       isCelsius,
       convertToFahrenheit,
+      convertToCelsius,
       language,
+      isUsCountryUnits,
     } = this.props;
 
     return data.length ? (
@@ -31,7 +35,9 @@ class WeatherNextDays extends Component<IWeatherNextDaysProps> {
               getIcon={getIcon}
               isCelsius={isCelsius}
               convertToFahrenheit={convertToFahrenheit}
+              convertToCelsius={convertToCelsius}
               language={language}
+              isUsCountryUnits={isUsCountryUnits}
             />
           ) : null;
         })}

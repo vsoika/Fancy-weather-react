@@ -17,6 +17,8 @@ interface IWeatherNextDaysItemProps {
   convertToFahrenheit: (convertValue: number) => string;
   isCelsius: boolean;
   language: string;
+  convertToCelsius: (convertValue: number) => string;
+  isUsCountryUnits: boolean;
 }
 
 class WeatherNextDaysItem extends Component<IWeatherNextDaysItemProps> {
@@ -29,7 +31,13 @@ class WeatherNextDaysItem extends Component<IWeatherNextDaysItemProps> {
 
   render() {
     const { temperatureHigh, temperatureLow, icon, time } = this.props.dayData;
-    const { isCelsius, getIcon, convertToFahrenheit } = this.props;
+    const {
+      isCelsius,
+      getIcon,
+      convertToFahrenheit,
+      convertToCelsius,
+      isUsCountryUnits,
+    } = this.props;
 
     return (
       <div className="weather-next-days__day-container">
@@ -40,12 +48,16 @@ class WeatherNextDaysItem extends Component<IWeatherNextDaysItemProps> {
           <Skycons color="white" icon={getIcon(icon)} style={skyconsStyles} />
           <div className="weather-next-days__container-weather__temperature">
             <div>
-              {isCelsius
+              {isCelsius && isUsCountryUnits
+                ? convertToCelsius(temperatureHigh)
+                : isCelsius || isUsCountryUnits
                 ? `${Math.trunc(temperatureHigh)}°`
                 : convertToFahrenheit(temperatureHigh)}
             </div>
             <div>
-              {isCelsius
+              {isCelsius && isUsCountryUnits
+                ? convertToCelsius(temperatureLow)
+                : isCelsius || isUsCountryUnits
                 ? `${Math.trunc(temperatureLow)}°`
                 : convertToFahrenheit(temperatureLow)}
             </div>
