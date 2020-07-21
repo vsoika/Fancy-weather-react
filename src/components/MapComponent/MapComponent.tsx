@@ -1,29 +1,35 @@
-import React from 'react';
-import ReactMapboxGl from 'react-mapbox-gl';
+import React, { Component } from 'react';
+import ReactMapGL from 'react-map-gl';
+import { MAPBOX_TOKEN } from '../../constants';
 
 interface IMapComponentProps {
   longitude: number;
   latitude: number;
 }
 
-const MapComponent: React.FC<IMapComponentProps> = ({ longitude, latitude }) => {
-  const Map = ReactMapboxGl({
-    accessToken:
-      'pk.eyJ1IjoiZ2VzdGEwMyIsImEiOiJjazlxMWpvaHIwZnl5M25tbXp1bHVoeGd1In0.ONh-B7KpS5D2Mwx64KpAaQ',
-  });
+class MapComponent extends Component<IMapComponentProps>  {
+  state = {
+      viewport: {
+        latitude: this.props.latitude,
+        longitude: this.props.longitude,
+        zoom: 12,
+        bearing: 0,
+        pitch: 0
+      }
+    };
 
-  console.log(latitude, longitude)
-
-  return (
-      <Map
-        style="mapbox://styles/mapbox/streets-v11"
-        center={[longitude, latitude]}
-        containerStyle={{
-          height: '300px',
-          width: '300px'
-        }}
+  render() {
+    return (
+      <ReactMapGL
+        {...this.state.viewport}
+        width='auto'
+        height="70vh"
+        mapStyle="mapbox://styles/mapbox/streets-v11"
+        onViewportChange={(viewport) => this.setState({viewport})}
+        mapboxApiAccessToken={MAPBOX_TOKEN}
       />
-  );
+    );
+  }
 };
 
 export default MapComponent;

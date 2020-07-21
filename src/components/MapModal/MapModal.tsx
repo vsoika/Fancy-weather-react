@@ -2,6 +2,9 @@ import React from 'react';
 import { Modal, Button } from 'react-bootstrap';
 import MapComponent from '../MapComponent';
 
+
+import './MapModal.scss';
+
 interface IMapModalProps {
     show: boolean;
     onHide: () => void;
@@ -17,10 +20,9 @@ const MapModal: React.FC<IMapModalProps> = (props) => {
         {...modalProps}
         size="lg"
         aria-labelledby="contained-modal-title-vcenter"
+        dialogClassName="modal-90w"
         centered
       >
-        <Modal.Header closeButton>
-        </Modal.Header>
         <Modal.Body>
             <MapComponent latitude={latitude} longitude={longitude}></MapComponent>
         </Modal.Body>
